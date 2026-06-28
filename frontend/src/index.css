@@ -1,0 +1,558 @@
+@import "tailwindcss";
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+/* ========== Design System Tokens ========== */
+:root {
+  --color-primary: #4F46E5;
+  --color-primary-light: #818CF8;
+  --color-accent: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-surface: #F8FAFC;
+  --color-card: #FFFFFF;
+  --color-text: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-border: #E5E7EB;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 4px 12px rgba(79,70,229,0.12), 0 8px 32px rgba(79,70,229,0.08);
+  --radius-card: 16px;
+  --radius-btn: 10px;
+  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ========== Base ========== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ========== App Shell ========== */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-surface);
+}
+
+.app-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: #FFFFFF;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 40;
+  transition: transform var(--transition);
+  box-shadow: 2px 0 12px rgba(0,0,0,0.04);
+}
+
+.app-sidebar.collapsed {
+  transform: translateX(-260px);
+}
+
+.app-main {
+  flex: 1;
+  margin-left: 260px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left var(--transition);
+}
+
+.app-main.expanded {
+  margin-left: 0;
+}
+
+.app-topbar {
+  height: 64px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.app-content {
+  flex: 1;
+  padding: 28px 28px;
+  overflow-y: auto;
+}
+
+/* ========== Cards ========== */
+.ff-card {
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(229,231,235,0.8);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.ff-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.ff-card-glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* ========== Buttons ========== */
+.ff-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-btn);
+  font-weight: 500;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.ff-btn-primary {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+}
+
+.ff-btn-primary:hover {
+  background: #4338CA;
+  box-shadow: 0 4px 16px rgba(79,70,229,0.4);
+  transform: translateY(-1px);
+}
+
+.ff-btn-secondary {
+  background: var(--color-primary-light + '20');
+  background: #EEF2FF;
+  color: var(--color-primary);
+}
+
+.ff-btn-secondary:hover {
+  background: #E0E7FF;
+  transform: translateY(-1px);
+}
+
+.ff-btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.ff-btn-ghost:hover {
+  background: #F3F4F6;
+  color: var(--color-text);
+}
+
+.ff-btn-danger {
+  background: var(--color-danger);
+  color: white;
+}
+
+.ff-btn-danger:hover {
+  background: #DC2626;
+  transform: translateY(-1px);
+}
+
+/* ========== Inputs ========== */
+.ff-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: var(--color-text);
+  background: #FFFFFF;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+.ff-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+}
+
+.ff-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* ========== Badges ========== */
+.ff-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ff-badge-primary { background: #EEF2FF; color: #4F46E5; }
+.ff-badge-success { background: #F0FDF4; color: #16A34A; }
+.ff-badge-warning { background: #FFFBEB; color: #D97706; }
+.ff-badge-danger  { background: #FEF2F2; color: #DC2626; }
+.ff-badge-info    { background: #EFF6FF; color: #2563EB; }
+.ff-badge-purple  { background: #FAF5FF; color: #7C3AED; }
+.ff-badge-gray    { background: #F9FAFB; color: #6B7280; }
+
+/* ========== Priority Colors ========== */
+.priority-low     { color: #22C55E; background: #F0FDF4; }
+.priority-medium  { color: #F59E0B; background: #FFFBEB; }
+.priority-high    { color: #EF4444; background: #FEF2F2; }
+.priority-urgent  { color: #7C3AED; background: #FAF5FF; }
+
+/* ========== Sidebar Nav Items ========== */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: #F5F3FF;
+  color: var(--color-primary);
+}
+
+.nav-item.active {
+  background: #EEF2FF;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.nav-item.active .nav-icon {
+  color: var(--color-primary);
+}
+
+/* ========== Stats Cards ========== */
+.stat-card {
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  padding: 20px 24px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(229,231,235,0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ========== Kanban ========== */
+.kanban-col {
+  background: #F8FAFC;
+  border-radius: 14px;
+  border: 1.5px solid var(--color-border);
+  min-height: 500px;
+  flex: 1;
+  min-width: 240px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition);
+}
+
+.kanban-col.drag-over {
+  border-color: var(--color-primary);
+  background: #EEF2FF;
+}
+
+.kanban-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 0 12px 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border: 1px solid var(--color-border);
+  cursor: grab;
+  transition: all var(--transition);
+}
+
+.kanban-card:hover {
+  box-shadow: 0 4px 12px rgba(79,70,229,0.1);
+  border-color: #C7D2FE;
+  transform: translateY(-1px);
+}
+
+.kanban-card:active {
+  cursor: grabbing;
+  box-shadow: 0 8px 24px rgba(79,70,229,0.15);
+  transform: scale(1.02) rotate(1deg);
+}
+
+/* ========== Calendar ========== */
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+  min-height: 48px;
+}
+
+.calendar-day:hover {
+  background: #F5F3FF;
+  border-color: #C7D2FE;
+}
+
+.calendar-day.today {
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+}
+
+.calendar-day.has-tasks::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+.calendar-day.today.has-tasks::after {
+  background: white;
+}
+
+/* ========== Progress Bar ========== */
+.ff-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #E5E7EB;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ff-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========== Skeleton Loading ========== */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ========== Animations ========== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes skeleton {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s ease-out; }
+.animate-slide-up { animation: slideUp 0.4s ease-out; }
+.animate-slide-down { animation: slideDown 0.3s ease-out; }
+.animate-scale-in { animation: scaleIn 0.2s ease-out; }
+
+/* ========== Modal ========== */
+.ff-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17,24,39,0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.ff-modal {
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: scaleIn 0.25s ease-out;
+}
+
+/* ========== Tabs ========== */
+.ff-tabs {
+  display: flex;
+  background: #F3F4F6;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.ff-tab {
+  flex: 1;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  transition: all var(--transition);
+  font-family: 'Poppins', sans-serif;
+}
+
+.ff-tab.active {
+  background: #FFFFFF;
+  color: var(--color-primary);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* ========== Tooltip ========== */
+.ff-tooltip {
+  position: relative;
+}
+.ff-tooltip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1F2937;
+  color: white;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.ff-tooltip:hover::after {
+  opacity: 1;
+}
+
+/* ========== Slick Carousel ========== */
+.slick-prev:before,
+.slick-next:before {
+  color: #4F46E5 !important;
+  font-size: 30px;
+}
+.slick-prev { left: -30px; }
+.slick-next { right: -30px; }
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .app-sidebar {
+    transform: translateX(-260px);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+  }
+  .app-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  .app-main {
+    margin-left: 0;
+  }
+  .app-content {
+    padding: 16px;
+  }
+}
+
+/* ========== Dark mode preparation (future) ========== */
+.dark .app-sidebar { background: #1E293B; border-color: #334155; }
+.dark .app-topbar  { background: #1E293B; border-color: #334155; }
+.dark .ff-card     { background: #1E293B; border-color: #334155; }
+.dark body         { background: #0F172A; color: #F1F5F9; }
