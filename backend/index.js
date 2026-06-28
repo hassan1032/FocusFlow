@@ -14,8 +14,8 @@ require("./reminder");
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://focusflowfrontend.onrender.com"
-];
+  process.env.FRONTEND_URL,
+].filter(Boolean);
 
 app.use(
   cors({
@@ -58,7 +58,7 @@ app.use("/api/note", noteRouter)
 app.use('/api/habits', require('./routes/habit'));
 
 //text summary
-app.use('/api/summarize', require('./routes/textSummary'));
+app.use('/textSummary', require('./routes/textSummary'));
 
 //flashcard
 app.use("/api/flash/createcard", cardRoutes)

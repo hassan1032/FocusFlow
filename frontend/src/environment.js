@@ -1,10 +1,4 @@
 
-const server={
-    dev:"http://localhost:5000",
-    prod:"https://focusflowbackend.onrender.com"
-}
-
-const baseURL =
-  process.env.NODE_ENV === "development" ? server.dev : server.prod;
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default baseURL;
